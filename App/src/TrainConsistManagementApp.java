@@ -2,24 +2,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-// Bogie class
-class Bogie {
-    String name;
-    int capacity;
-
-    // Constructor
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    // Display method
-    @Override
-    public String toString() {
-        return name + " -> Capacity: " + capacity;
-    }
-}
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
@@ -36,7 +18,7 @@ public class TrainConsistManagementApp {
         bogies.add(new Bogie("First Class", 24));
 
         // Sort bogies by capacity (ascending)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        bogies.sort(Comparator.comparingInt(b -> b.getCapacity()));
 
         // Display sorted bogies
         System.out.println("\nBogies sorted by capacity (Ascending):");
