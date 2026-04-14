@@ -1,22 +1,28 @@
-import java.util.*;
-import java.util.stream.*;
+import java.util.Scanner;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // Creating list of bogies
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 72),
-                new Bogie("AC Chair", 50),
-                new Bogie("First Class", 24)
-        );
+        Scanner scanner = new Scanner(System.in);
+        TrainService service = new TrainService();
 
-        // Stream pipeline: map + reduce
-        int totalSeats = bogies.stream()
-                .map(Bogie::getCapacity)   // Extract capacity
-                .reduce(0, Integer::sum);  // Aggregate
+        System.out.print("Enter Train ID: ");
+        String trainId = scanner.nextLine();
 
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        System.out.print("Enter Cargo Code: ");
+        String cargoCode = scanner.nextLine();
+
+        if (service.isValidTrainId(trainId)) {
+            System.out.println("Valid Train ID");
+        } else {
+            System.out.println("Invalid Train ID");
+        }
+
+        if (service.isValidCargoCode(cargoCode)) {
+            System.out.println("Valid Cargo Code");
+        } else {
+            System.out.println("Invalid Cargo Code");
+        }
     }
 }

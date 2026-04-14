@@ -1,27 +1,29 @@
-import java.util.*;
-import java.util.stream.*;
+import java.util.regex.*;
 
 public class TrainService {
 
-    // UC10: Total Seat Calculation
-    public int getTotalSeats(List<Bogie> bogies) {
-        return bogies.stream()
-                .map(Bogie::getCapacity)
-                .reduce(0, Integer::sum);
+    private static final String TRAIN_ID_REGEX = "TRN-\\d{4}";
+    private static final String CARGO_CODE_REGEX = "PET-[A-Z]{2}";
+
+    private Pattern trainPattern;
+    private Pattern cargoPattern;
+
+    public TrainService() {
+        trainPattern = Pattern.compile(TRAIN_ID_REGEX);
+        cargoPattern = Pattern.compile(CARGO_CODE_REGEX);
     }
 
-    // Filter by type
-    public List<Bogie> getBogiesByType(List<Bogie> bogies, String type) {
-        return bogies.stream()
-                .filter(b -> b.getType().equalsIgnoreCase(type))
-                .collect(Collectors.toList());
+    public boolean isValidTrainId(String trainId) {
+        if (trainId == null || trainId.isEmpty()) return false;
+
+        Matcher matcher = trainPattern.matcher(trainId);
+        return matcher.matches();
     }
 
-    // Total seats by specific type
-    public int getTotalSeatsByType(List<Bogie> bogies, String type) {
-        return bogies.stream()
-                .filter(b -> b.getType().equalsIgnoreCase(type))
-                .map(Bogie::getCapacity)
-                .reduce(0, Integer::sum);
+    public boolean isValidCargoCode(String cargoCode) {
+        if (cargoCode == null || cargoCode.isEmpty()) return false;
+
+        Matcher matcher = cargoPattern.matcher(cargoCode);
+        return matcher.matches();
     }
 }
