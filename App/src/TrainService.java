@@ -2,21 +2,23 @@ import java.util.*;
 
 public class TrainService {
 
-    private List<PassengerBogie> bogies = new ArrayList<>();
+    private List<GoodsBogie> goodsBogies = new ArrayList<>();
 
-    public void addPassengerBogie(String type, int capacity) {
+    // Add bogie to system
+    public void addGoodsBogie(GoodsBogie bogie) {
+        goodsBogies.add(bogie);
+    }
 
-        try {
-            PassengerBogie bogie = new PassengerBogie(type, capacity);
-            bogies.add(bogie);
-            System.out.println("Bogie added successfully: " + type);
+    // Assign cargo to all bogies
+    public void assignCargoToAll(String cargo) {
 
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage()); // ✅ fixed
+        for (GoodsBogie bogie : goodsBogies) {
+            bogie.assignCargo(cargo); // 🔥 UC15 logic inside this method
         }
     }
 
-    public List<PassengerBogie> getBogies() {
-        return bogies;
+    // Getter
+    public List<GoodsBogie> getGoodsBogies() {
+        return goodsBogies;
     }
 }
