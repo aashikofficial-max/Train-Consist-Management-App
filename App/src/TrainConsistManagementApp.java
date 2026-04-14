@@ -1,38 +1,22 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // Step 1: Create list of bogies
-        List<Bogie> bogies = new ArrayList<>();
+        // Creating list of bogies
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Sleeper", 72),
+                new Bogie("AC Chair", 50),
+                new Bogie("First Class", 24)
+        );
 
-        bogies.add(new Bogie("Sleeper", "Passenger", 72));
-        bogies.add(new Bogie("AC Chair", "Passenger", 60));
-        bogies.add(new Bogie("Sleeper", "Passenger", 72));
-        bogies.add(new Bogie("First Class", "Passenger", 40));
-        bogies.add(new Bogie("Rectangular", "Goods", 100));
-        bogies.add(new Bogie("Cylindrical", "Goods", 80));
+        // Stream pipeline: map + reduce
+        int totalSeats = bogies.stream()
+                .map(Bogie::getCapacity)   // Extract capacity
+                .reduce(0, Integer::sum);  // Aggregate
 
-        // Step 2: Create service object
-        TrainConsistService service = new TrainConsistService();
-
-        // Step 3: Apply grouping
-        Map<String, List<Bogie>> groupedBogies =
-                service.groupBogiesByType(bogies);
-
-        // Step 4: Display grouped result
-        System.out.println("===== Grouped Bogies By Type =====");
-
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-
-            System.out.println("\nType: " + entry.getKey());
-
-            for (Bogie bogie : entry.getValue()) {
-                System.out.println(bogie);
-            }
-        }
+        System.out.println("Total Seating Capacity: " + totalSeats);
     }
 }
