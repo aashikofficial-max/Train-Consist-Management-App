@@ -2,14 +2,15 @@ public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        try {
-            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            System.out.println("Created: " + b1.getType());
+        GoodsBogie b1 = new GoodsBogie("Cylindrical");
+        b1.assignCargo("Petroleum");   // ✅ valid
 
-            PassengerBogie b2 = new PassengerBogie("AC Chair", -10); // ❌ will throw
+        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        b2.assignCargo("Petroleum");   // ❌ handled safely
 
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        GoodsBogie b3 = new GoodsBogie("Rectangular");
+        b3.assignCargo("Coal");        // ✅ valid
+
+        System.out.println("Program continues...");
     }
 }
