@@ -1,17 +1,13 @@
-class GoodsBogie {
-    private String type;   // "Cylindrical", "Open", "Box"
-    private String cargo;  // "Petroleum", "Coal", etc.
+class Bogie {
+    private String type;
+    private int capacity;
 
-    public GoodsBogie(String type, String cargo) {
+    public Bogie(String type, int capacity) {
         this.type = type;
-        this.cargo = cargo;
+        this.capacity = capacity;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getCargo() {
-        return cargo;
+    public int getCapacity() {
+        return capacity;
     }
 }
