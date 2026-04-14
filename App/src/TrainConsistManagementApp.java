@@ -1,28 +1,20 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        List<GoodsBogie> bogies = Arrays.asList(
+                new GoodsBogie("Cylindrical", "Petroleum"),
+                new GoodsBogie("Open", "Coal"),
+                new GoodsBogie("Box", "Grain")
+        );
+
         TrainService service = new TrainService();
 
-        System.out.print("Enter Train ID: ");
-        String trainId = scanner.nextLine();
+        boolean isSafe = service.isSafetyCompliant(bogies);
 
-        System.out.print("Enter Cargo Code: ");
-        String cargoCode = scanner.nextLine();
-
-        if (service.isValidTrainId(trainId)) {
-            System.out.println("Valid Train ID");
-        } else {
-            System.out.println("Invalid Train ID");
-        }
-
-        if (service.isValidCargoCode(cargoCode)) {
-            System.out.println("Valid Cargo Code");
-        } else {
-            System.out.println("Invalid Cargo Code");
-        }
+        System.out.println("Safety Compliance: " +
+                (isSafe ? "SAFE" : "UNSAFE"));
     }
 }

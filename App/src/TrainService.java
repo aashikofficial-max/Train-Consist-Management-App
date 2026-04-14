@@ -1,29 +1,15 @@
-import java.util.regex.*;
+import java.util.*;
 
 public class TrainService {
 
-    private static final String TRAIN_ID_REGEX = "TRN-\\d{4}";
-    private static final String CARGO_CODE_REGEX = "PET-[A-Z]{2}";
+    public boolean isSafetyCompliant(List<GoodsBogie> bogies) {
 
-    private Pattern trainPattern;
-    private Pattern cargoPattern;
-
-    public TrainService() {
-        trainPattern = Pattern.compile(TRAIN_ID_REGEX);
-        cargoPattern = Pattern.compile(CARGO_CODE_REGEX);
-    }
-
-    public boolean isValidTrainId(String trainId) {
-        if (trainId == null || trainId.isEmpty()) return false;
-
-        Matcher matcher = trainPattern.matcher(trainId);
-        return matcher.matches();
-    }
-
-    public boolean isValidCargoCode(String cargoCode) {
-        if (cargoCode == null || cargoCode.isEmpty()) return false;
-
-        Matcher matcher = cargoPattern.matcher(cargoCode);
-        return matcher.matches();
+        return bogies.stream()
+                .allMatch(b ->
+                        // Rule:
+                        // If Cylindrical → must be Petroleum
+                        !b.getType().equalsIgnoreCase("Cylindrical") ||
+                                b.getCargo().equalsIgnoreCase("Petroleum")
+                );
     }
 }
