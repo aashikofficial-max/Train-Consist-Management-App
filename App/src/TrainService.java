@@ -1,24 +1,22 @@
 import java.util.*;
-import java.util.stream.*;
 
 public class TrainService {
 
-    // Loop-based filtering
-    public List<Bogie> filterWithLoop(List<Bogie> bogies) {
-        List<Bogie> result = new ArrayList<>();
+    private List<PassengerBogie> bogies = new ArrayList<>();
 
-        for (Bogie b : bogies) {
-            if (b.getCapacity() > 60) {
-                result.add(b);
-            }
+    public void addPassengerBogie(String type, int capacity) {
+
+        try {
+            PassengerBogie bogie = new PassengerBogie(type, capacity);
+            bogies.add(bogie);
+            System.out.println("Bogie added successfully: " + type);
+
+        } catch (InvalidCapacityException e) {
+            System.out.println("Error: " + e.getMessage()); // ✅ fixed
         }
-        return result;
     }
 
-    // Stream-based filtering
-    public List<Bogie> filterWithStream(List<Bogie> bogies) {
-        return bogies.stream()
-                .filter(b -> b.getCapacity() > 60)
-                .collect(Collectors.toList());
+    public List<PassengerBogie> getBogies() {
+        return bogies;
     }
 }
