@@ -1,15 +1,24 @@
 import java.util.*;
+import java.util.stream.*;
 
 public class TrainService {
 
-    public boolean isSafetyCompliant(List<GoodsBogie> bogies) {
+    // Loop-based filtering
+    public List<Bogie> filterWithLoop(List<Bogie> bogies) {
+        List<Bogie> result = new ArrayList<>();
 
+        for (Bogie b : bogies) {
+            if (b.getCapacity() > 60) {
+                result.add(b);
+            }
+        }
+        return result;
+    }
+
+    // Stream-based filtering
+    public List<Bogie> filterWithStream(List<Bogie> bogies) {
         return bogies.stream()
-                .allMatch(b ->
-                        // Rule:
-                        // If Cylindrical → must be Petroleum
-                        !b.getType().equalsIgnoreCase("Cylindrical") ||
-                                b.getCargo().equalsIgnoreCase("Petroleum")
-                );
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
     }
 }
