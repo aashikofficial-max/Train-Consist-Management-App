@@ -1,24 +1,29 @@
-import java.util.*;
-
 public class TrainService {
 
-    private List<GoodsBogie> goodsBogies = new ArrayList<>();
-
-    // Add bogie to system
-    public void addGoodsBogie(GoodsBogie bogie) {
-        goodsBogies.add(bogie);
-    }
-
-    // Assign cargo to all bogies
-    public void assignCargoToAll(String cargo) {
-
-        for (GoodsBogie bogie : goodsBogies) {
-            bogie.assignCargo(cargo); // 🔥 UC15 logic inside this method
+    // Bubble Sort logic moved to service layer
+    public void sortCapacities(int[] capacities) {
+        if (capacities == null || capacities.length <= 1) {
+            return; // Nothing to sort
         }
-    }
 
-    // Getter
-    public List<GoodsBogie> getGoodsBogies() {
-        return goodsBogies;
+        int n = capacities.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            boolean swapped = false;
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (capacities[j] > capacities[j + 1]) {
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            // Optimization: Stop early if already sorted
+            if (!swapped) {
+                break;
+            }
+        }
     }
 }
