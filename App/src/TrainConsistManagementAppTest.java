@@ -1,61 +1,55 @@
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class TrainConsistManagementAppTest {
 
-    // ✅ Test 1: Safe Assignment
     @Test
-    public void testCargo_SafeAssignment() {
-        GoodsBogie b = new GoodsBogie("Cylindrical");
+    public void testSort_BasicSorting() {
+        int[] input = {72, 56, 24, 70, 60};
+        int[] expected = {24, 56, 60, 70, 72};
 
-        b.assignCargo("Petroleum");
+        TrainConsistManagementApp.bubbleSort(input);
 
-        assertEquals("Petroleum", b.getCargo());
+        assertArrayEquals(expected, input);
     }
 
-    // ✅ Test 2: Unsafe Assignment Handled
     @Test
-    public void testCargo_UnsafeAssignmentHandled() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
+    public void testSort_AlreadySortedArray() {
+        int[] input = {24, 56, 60, 70, 72};
+        int[] expected = {24, 56, 60, 70, 72};
 
-        b.assignCargo("Petroleum");
+        TrainConsistManagementApp.bubbleSort(input);
 
-        // Should NOT assign cargo
-        assertNull(b.getCargo());
+        assertArrayEquals(expected, input);
     }
 
-    // ✅ Test 3: Cargo Not Assigned After Failure
     @Test
-    public void testCargo_CargoNotAssignedAfterFailure() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
+    public void testSort_DuplicateValues() {
+        int[] input = {72, 56, 56, 24};
+        int[] expected = {24, 56, 56, 72};
 
-        b.assignCargo("Petroleum");
+        TrainConsistManagementApp.bubbleSort(input);
 
-        assertNull(b.getCargo());
+        assertArrayEquals(expected, input);
     }
 
-    // ✅ Test 4: Program Continues After Exception
     @Test
-    public void testCargo_ProgramContinuesAfterException() {
-        GoodsBogie b1 = new GoodsBogie("Rectangular");
-        GoodsBogie b2 = new GoodsBogie("Cylindrical");
+    public void testSort_SingleElementArray() {
+        int[] input = {50};
+        int[] expected = {50};
 
-        b1.assignCargo("Petroleum"); // ❌ fails internally
-        b2.assignCargo("Petroleum"); // ✅ should still work
+        TrainConsistManagementApp.bubbleSort(input);
 
-        assertEquals("Petroleum", b2.getCargo());
+        assertArrayEquals(expected, input);
     }
 
-    // ✅ Test 5: Finally Block Execution (Indirect Validation)
     @Test
-    public void testCargo_FinallyBlockExecution() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
+    public void testSort_AllEqualValues() {
+        int[] input = {40, 40, 40};
+        int[] expected = {40, 40, 40};
 
-        // We cannot directly test finally block output,
-        // but we ensure method completes without crash
-        b.assignCargo("Petroleum");
+        TrainConsistManagementApp.bubbleSort(input);
 
-        // If finally didn't execute properly, method might crash
-        assertTrue(true); // just ensures flow completed
+        assertArrayEquals(expected, input);
     }
 }
