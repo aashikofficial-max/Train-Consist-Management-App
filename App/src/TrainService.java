@@ -1,44 +1,27 @@
-import java.util.Arrays;
-
 public class TrainService {
 
     /**
-     * Performs Binary Search on bogie IDs
-     * Ensures sorting before searching
+     * Linear search with validation (Fail-Fast approach)
      */
-    public boolean binarySearchBogie(String[] bogieIds, String searchKey) {
+    public boolean searchBogie(String[] bogieIds, String searchKey) {
 
-        // Handle empty array
+        // ❗ State validation before search
         if (bogieIds == null || bogieIds.length == 0) {
-            return false;
+            throw new IllegalStateException("No bogies available in the train consist.");
         }
 
-        // Step 1: Sort the array (important precondition)
-        Arrays.sort(bogieIds);
-
-        // Step 2: Initialize pointers
-        int low = 0;
-        int high = bogieIds.length - 1;
-
-        // Step 3: Binary Search logic
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int comparison = searchKey.compareTo(bogieIds[mid]);
-
-            if (comparison == 0) {
-                return true; // Found
-            }
-            else if (comparison < 0) {
-                high = mid - 1; // Search left half
-            }
-            else {
-                low = mid + 1; // Search right half
+        // Normal linear search
+        for (String id : bogieIds) {
+            if (id.equals(searchKey)) {
+                return true;
             }
         }
 
-        // Not found
         return false;
+    }
+
+    public boolean binarySearchBogie(String[] bogieIds, String searchKey) {
+        boolean type = false;
+        return type;
     }
 }

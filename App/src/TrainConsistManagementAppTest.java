@@ -5,45 +5,38 @@ public class TrainConsistManagementAppTest {
 
     TrainService service = new TrainService();
 
-    @Test
-    public void testBinarySearch_BogieFound() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
-        assertTrue(service.binarySearchBogie(bogies, "BG309"));
-    }
-
-    @Test
-    public void testBinarySearch_BogieNotFound() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
-        assertFalse(service.binarySearchBogie(bogies, "BG999"));
-    }
-
-    @Test
-    public void testBinarySearch_FirstElementMatch() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
-        assertTrue(service.binarySearchBogie(bogies, "BG101"));
-    }
-
-    @Test
-    public void testBinarySearch_LastElementMatch() {
-        String[] bogies = {"BG101","BG205","BG309","BG412","BG550"};
-        assertTrue(service.binarySearchBogie(bogies, "BG550"));
-    }
-
-    @Test
-    public void testBinarySearch_SingleElementArray() {
-        String[] bogies = {"BG101"};
-        assertTrue(service.binarySearchBogie(bogies, "BG101"));
-    }
-
-    @Test
-    public void testBinarySearch_EmptyArray() {
+    // Test: Exception when array is empty
+    @Test(expected = IllegalStateException.class)
+    public void testSearch_ThrowsExceptionWhenEmpty() {
         String[] bogies = {};
-        assertFalse(service.binarySearchBogie(bogies, "BG101"));
+        service.searchBogie(bogies, "BG101");
     }
 
+    // Test: Search allowed when data exists
     @Test
-    public void testBinarySearch_UnsortedInputHandled() {
-        String[] bogies = {"BG309","BG101","BG550","BG205","BG412"};
-        assertTrue(service.binarySearchBogie(bogies, "BG205"));
+    public void testSearch_AllowsSearchWhenDataExists() {
+        String[] bogies = {"BG101","BG205"};
+        service.searchBogie(bogies, "BG101"); // should not throw exception
+    }
+
+    // Test: Bogie found after validation
+    @Test
+    public void testSearch_BogieFoundAfterValidation() {
+        String[] bogies = {"BG101","BG205","BG309"};
+        assertTrue(service.searchBogie(bogies, "BG205"));
+    }
+
+    // Test: Bogie not found after validation
+    @Test
+    public void testSearch_BogieNotFoundAfterValidation() {
+        String[] bogies = {"BG101","BG205","BG309"};
+        assertFalse(service.searchBogie(bogies, "BG999"));
+    }
+
+    // Test: Single element case
+    @Test
+    public void testSearch_SingleElementValidCase() {
+        String[] bogies = {"BG101"};
+        assertTrue(service.searchBogie(bogies, "BG101"));
     }
 }
