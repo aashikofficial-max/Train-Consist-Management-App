@@ -1,12 +1,12 @@
-import java.util.Arrays;
-
 public class TrainService {
 
-    public void sortBogieNames(String[] bogieNames) {
-        if (bogieNames == null || bogieNames.length <= 1) {
-            return;
+    // Linear Search Service Method
+    public boolean searchBogie(String[] bogieIds, String searchKey) {
+        for (String id : bogieIds) {
+            if (id.equals(searchKey)) {
+                return true; // Early termination
+            }
         }
-
-        Arrays.sort(bogieNames);
+        return false;
     }
 }
