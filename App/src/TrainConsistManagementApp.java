@@ -1,29 +1,48 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class TrainConsistManagementApp {
 
+    // Method to perform Linear Search
+    public static boolean searchBogie(String[] bogieIds, String searchKey) {
+        for (int i = 0; i < bogieIds.length; i++) {
+            // Equality comparison using equals()
+            if (bogieIds[i].equals(searchKey)) {
+                return true; // Early termination when match is found
+            }
+        }
+        return false; // No match found after full traversal
+    }
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
-        TrainService service = new TrainService();
+        // Accept number of bogies
+        System.out.print("Enter number of bogies: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // consume newline
 
-        System.out.print("Enter number of bogie types: ");
-        int n = sc.nextInt();
-        sc.nextLine(); // consume newline
+        String[] bogieIds = new String[n];
 
-        String[] bogieNames = new String[n];
-
-        System.out.println("Enter bogie names:");
+        // Input bogie IDs
+        System.out.println("Enter bogie IDs:");
         for (int i = 0; i < n; i++) {
-            bogieNames[i] = sc.nextLine();
+            bogieIds[i] = scanner.nextLine();
         }
 
-        service.sortBogieNames(bogieNames);
+        // Input search key
+        System.out.print("Enter bogie ID to search: ");
+        String searchKey = scanner.nextLine();
 
-        System.out.println("Sorted Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
+        // Perform search
+        boolean found = searchBogie(bogieIds, searchKey);
 
-        sc.close();
+        // Output result
+        if (found) {
+            System.out.println("Bogie ID " + searchKey + " FOUND in the consist.");
+        } else {
+            System.out.println("Bogie ID " + searchKey + " NOT FOUND in the consist.");
+        }
+
+        scanner.close();
     }
 }
