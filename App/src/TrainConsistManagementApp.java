@@ -2,25 +2,17 @@ import java.util.Scanner;
 
 public class TrainConsistManagementApp {
 
-    // Method to perform Linear Search
-    public static boolean searchBogie(String[] bogieIds, String searchKey) {
-        for (int i = 0; i < bogieIds.length; i++) {
-            // Equality comparison using equals()
-            if (bogieIds[i].equals(searchKey)) {
-                return true; // Early termination when match is found
-            }
-        }
-        return false; // No match found after full traversal
-    }
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        // Accept number of bogies
+        Scanner scanner = new Scanner(System.in);
+        TrainService service = new TrainService();
+
+        // Input number of bogies
         System.out.print("Enter number of bogies: ");
         int n = scanner.nextInt();
         scanner.nextLine(); // consume newline
 
+        // Create array
         String[] bogieIds = new String[n];
 
         // Input bogie IDs
@@ -33,10 +25,10 @@ public class TrainConsistManagementApp {
         System.out.print("Enter bogie ID to search: ");
         String searchKey = scanner.nextLine();
 
-        // Perform search
-        boolean found = searchBogie(bogieIds, searchKey);
+        // Call Binary Search service
+        boolean found = service.binarySearchBogie(bogieIds, searchKey);
 
-        // Output result
+        // Display result
         if (found) {
             System.out.println("Bogie ID " + searchKey + " FOUND in the consist.");
         } else {
